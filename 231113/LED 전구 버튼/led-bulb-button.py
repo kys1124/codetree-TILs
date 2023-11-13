@@ -22,13 +22,12 @@ for _ in range(B):
         S.add(tuple(arr))
 
 arr = origin
-for idx in range(B%len(S)):
-    arr = press(arr)
+if tuple([0]*N) not in S:
+    for idx in range(B%len(S)):
+        arr = press(arr)
 
-if 1 not in arr:
-    for _ in range(len(arr)):
-        print(0)
-
-else:
     for x in arr:
         print(x)
+else:
+    for _ in range(len(arr)):
+        print(0)
