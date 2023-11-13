@@ -25,7 +25,6 @@ for i in range(N):
     for j in range(M):
         if arr[i][j]==1 and v[i][j]==0:
             cnt = dfs(i,j, idx)
-            mx = max(mx, cnt)
             cnt_lst.append(cnt)
             idx+=1
 
