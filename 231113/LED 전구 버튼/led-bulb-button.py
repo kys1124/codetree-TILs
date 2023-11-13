@@ -13,21 +13,17 @@ def press(arr):
             arr[i] = dic[arr[i]]
     return arr
 
-S.add(tuple(arr))
+S = []
+idx  = 0
 for _ in range(B):
     arr = press(arr)
     if tuple(arr) in S:
+        idx = S.index(tuple(arr))
+        S  = S[idx:]
+        arr = S[(B-idx)%(len(S))-1]
         break
     else:
-        S.add(tuple(arr))
+        S.append(tuple(arr))
 
-arr = origin
-if tuple([0]*N) not in S:
-    for idx in range(B%len(S)):
-        arr = press(arr)
-
-    for x in arr:
-        print(x)
-else:
-    for _ in range(len(arr)):
-        print(0)
+for x in arr:
+    print(x)
