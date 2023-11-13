@@ -1,8 +1,10 @@
 N, B = map(int, input().split())
 arr = []
 dic = {0:1,1:0}
+S =  set()
 for _ in range(N):
     arr.append(int(input()))
+origin = arr[:]
 
 def press(arr):
     copy_arr  = arr[:]
@@ -13,5 +15,8 @@ def press(arr):
 
 for _ in range(B):
     arr = press(arr)
+    if 1 not in arr:
+        break
+
 for x in arr:
     print(x)
