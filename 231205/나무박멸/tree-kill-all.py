@@ -37,10 +37,11 @@ def find_best():
     mx,mi,mj = 0,N,N
     for i in range(N):
         for j in range(N):
-            if arr[i][j]==-1:
-                continue
             cnt = arr[i][j]
-            if arr[i][j]==0:
+            if arr[i][j]<=0:
+                cnt= 0
+
+            if cnt==0:
                 if cnt==mx:
                     if mi>i:
                         mi,mj = i,j
@@ -90,7 +91,8 @@ for _ in range(M):
                     break
 
     for ci,cj in lst:
-        arr[ci][cj]=0
+        if arr[ci][cj]>0:
+            arr[ci][cj]=0
         v[ci][cj] = C
 
 print(ans)
