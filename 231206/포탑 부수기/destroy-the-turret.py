@@ -1,14 +1,15 @@
+# 4시 35분 시작
 from collections import deque
 N, M, K = map(int ,input().split()) # NxM K턴
 arr = [list(map(int, input().split())) for _ in range(N)]
 # 0은 부서진 포탑, >0 은 공격력을 나타냄.
 # 만약 >0 이 1개 뿐이라면 그 즉시 중지. ******
-v = [[0]*N for _ in range(N)] #공격했던 턴 수를 기록.
+v = [[0]*M for _ in range(N)] #공격했던 턴 수를 기록.
 
 def find_weak(): #공격자를 선정.
     mn_power, mn_recent, mi,mj = 5001, -1, -1  ,-1
     for i in range(N):
-        for j in range(N):
+        for j in range(M):
             if arr[i][j]>0: #부서지지 않은 포탑.
                 if arr[i][j]<mn_power:
                     mn_power,mn_recent,mi,mj = arr[i][j], v[i][j], i,j
@@ -26,8 +27,8 @@ def find_weak(): #공격자를 선정.
 def find_strong():
     mx_power, mx_recent, mi,mj = -1,K+1, N+M, M
     for i in range(N):
-        for j in range(N):
-            if arr[i][j]>0:
+        for j in range(M):
+            if arr[i][j]>0 and (i,j)!=(wi,wj):
                 if arr[i][j]>mx_power:
                     mx_power,mx_recent,mi,mj = arr[i][j], v[i][j], i,j
                 elif arr[i][j]==mx_power:
@@ -86,9 +87,7 @@ for turn in range(1,K+1): # K번 반복.
         arr[si][sj] = max(0,arr[si][sj]- power)
         while True:
             si, sj = path[(si, sj)]
-            if path[(si,sj)]==(wi,wj):
-                arr[si][sj] = max(0, arr[si][sj]-power//2)
-                lst.add((si,sj))
+            if (si,sj)==(wi,wj):
                 break
             arr[si][sj] = max(0, arr[si][sj]-power//2)
             lst.add((si,sj))
@@ -98,7 +97,7 @@ for turn in range(1,K+1): # K번 반복.
 
     sm = 0
     for i in range(N):
-        for j in range(N):
+        for j in range(M):
             if arr[i][j]>0:
                 sm+=1
 
@@ -106,7 +105,7 @@ for turn in range(1,K+1): # K번 반복.
         break
 
     for i in range(N):
-        for j in range(N):
+        for j in range(M):
             if arr[i][j]>0 and (i,j) not in lst:
                 arr[i][j]+=1
 
