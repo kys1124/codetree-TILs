@@ -53,7 +53,7 @@ for i in range(1,M+1):
 
 T = 0
 while True:
-    for i in range(min(T,M+1)):
+    for i in range(1,min(T+1,M+1)):
         if not player.get(i):
             continue
         ci,cj = player[i]
@@ -70,12 +70,12 @@ while True:
                     del player[i]
                     arr[ei][ej]=-1
 
+    T+=1
+
     if sum(check)==M:
         break
 
-    T+=1
-
-    if T<=M:
+    if 1<=T<=M:
         ei,ej = market[T]
         si,sj = findBaseCamp(ei,ej)
         player[T] = (si,sj)
