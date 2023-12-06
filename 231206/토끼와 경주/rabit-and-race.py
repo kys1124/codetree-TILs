@@ -1,6 +1,4 @@
-import sys
 import heapq
-input = sys.stdin.readline
 Q = int(input()) # 명령어 수
 query, N,M, P, *lst = list(map(int, input().split()))
 rabbit = []
