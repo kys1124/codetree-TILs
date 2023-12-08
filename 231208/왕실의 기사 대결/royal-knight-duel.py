@@ -1,3 +1,11 @@
+# L*L (1,1)왼상 (N,N)오하 빈칸 함정 벽 구성. 체스판 밖도 벽
+# 기사들은 (r,c)좌상 기준으로 h*w 만큼 직사각형, k의 체력을 가짐.
+
+# 이동 -> 상하좌우 1칸 이동 가능. 붙어있는 기사는 같이 1칸 밀림. -> 벽이 있으면 못움직임.
+
+# 데미지-> 밀려난 기사만 피해를 입음. -> 함정 칸에서 직사각형 내의 함정의 수만큼 데미지.
+# 다 밀리고 난 후 데미지를 입고 체력이 0이하면 판에서 사라짐.
+
 import copy
 L, N, Q = map(int, input().split())
 arr = [[2]*(L+2)]+[[2]+list(map(int,input().split()))+[2] for _ in range(L)]+[[2]*(L+2)]
@@ -22,7 +30,7 @@ def dfs(i,d):
     flag = True
     for row in range(h):
         for col in range(w):
-            stk.append((si+row,sj+row))
+            stk.append((si+row,sj+col))
     while stk:
         ci,cj = stk.pop()
         di,dj = dir[d]
@@ -38,12 +46,12 @@ def dfs(i,d):
     return visited,flag
 
 
-
 for _ in range(Q):
     i,d = map(int, input().split())
     if not knight.get(i):
         continue
-    group,flag = dfs(i,d)
+
+    group, flag = dfs(i,d)
     if not flag: #벽에 막혀 이동 불가.
         continue
 
@@ -63,6 +71,11 @@ for _ in range(Q):
                     v[r + row][c + col] = number
                     if arr[r+row][c+col]==1:
                         k-=1
+                        print(knight)
+                        print(i,d)
+                        for x in v:
+                            print(*x)
+
             if k<=0:
                 for row in range(h):
                     for col in range(w):
@@ -70,6 +83,12 @@ for _ in range(Q):
                 del knight[number]
             else:
                 knight[number] = [r,c,h,w,k]
+    for key in knight.keys():
+        if key not in group:
+            r,c,h,w,k = knight[key]
+            for row in range(h):
+                for col in range(w):
+                    v[r + row][c + col] = key
 ans = 0
 
 for key, value in knight.items():
