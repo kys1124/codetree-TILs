@@ -71,11 +71,7 @@ for _ in range(Q):
                     v[r + row][c + col] = number
                     if arr[r+row][c+col]==1:
                         k-=1
-                        print(knight)
-                        print(i,d)
-                        for x in v:
-                            print(*x)
-
+    
             if k<=0:
                 for row in range(h):
                     for col in range(w):
